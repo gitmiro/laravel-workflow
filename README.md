@@ -103,7 +103,9 @@ class BlogPost extends Model
 
     public function getCurrentPlaceAttribute()
     {
-        return json_decode($this->attributes['currentPlace'], true);
+        if (isset($this->attributes['currentPlace'])) {
+            return json_decode($this->attributes['currentPlace'], true);
+        }
     }
 }
 ```
