@@ -84,7 +84,7 @@ class BlogPost extends Model
 }
 ```
 
-When using eliquent you will need to add 2 [mutators](https://laravel.com/docs/5.5/eloquent-mutators) to you model to let the save action work correctly.
+When using Eloquent you will need to add 2 [mutators](https://laravel.com/docs/5.5/eloquent-mutators) to your model to let the save action work correctly.
 If you named your marking store argument `currentPlace` your model should contain this:
 
 
