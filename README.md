@@ -85,7 +85,10 @@ class BlogPost extends Model
 ```
 
 When using Eloquent you will need to add 2 [mutators](https://laravel.com/docs/5.5/eloquent-mutators) to your model to let the save action work correctly.
-If you named your marking store argument `currentPlace` your model should contain this:
+If you named your marking store argument `currentPlace` and you're using the `SingleStateMarkingStore` your model should contain something like the
+following. If you're using the `MultipleStateMarkingStore` the `$value` will be an array not a string so you may wish to serialize it with JSON. Since we're
+using Eloquent mutators you must `json_encode`/`json_decode` manually in your mutators as Eloquent attribute casting via `$casts` is only run when no custom
+mutators exist for a given attribute.
 
 
 ```php
@@ -98,13 +101,13 @@ class BlogPost extends Model
   
     public function setCurrentPlaceAttribute($value)
     {
-        $this->attributes['currentPlace'] = json_encode($value);
+        $this->attributes['currentPlace'] = $value;
     }
 
     public function getCurrentPlaceAttribute()
     {
         if (isset($this->attributes['currentPlace'])) {
-            return json_decode($this->attributes['currentPlace'], true);
+            return $this->attributes['currentPlace'];
         }
     }
 }
